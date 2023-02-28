@@ -15,7 +15,7 @@ struct ComponentValues {
 }
 
 /// JNMentionEntity
-public struct JNMentionEntity {
+open struct JNMentionEntity {
     
     /// Ranage
     public var range: NSRange

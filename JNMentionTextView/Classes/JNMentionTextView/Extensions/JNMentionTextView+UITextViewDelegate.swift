@@ -89,15 +89,6 @@ extension JNMentionTextView: UITextViewDelegate {
                         
                         // move cursor to the end of replacement string
                         self.moveCursor(to: rangeAttributes.location + replacementString.count)
-                        
-                        // set selected symbol information
-                        self.selectedSymbol = mentionedItem.symbol
-                        self.selectedSymbolLocation = rangeAttributes.location
-                        self.selectedSymbolAttributes = attributes
-                        
-                        // start mention process with search string for tem title
-                        self.searchString = mentionedItem.item.getPickableTitle()
-                        self.startMentionProcess()
 
                         if options.entityCanBeTrimmed {
                             // end mention process
@@ -121,9 +112,6 @@ extension JNMentionTextView: UITextViewDelegate {
 
                         // skip this change in text
                         shouldChangeText = false
-                        
-                        // set mention deletion process true
-                        mentionDeletionProcess = true
                     }
                 }
                 

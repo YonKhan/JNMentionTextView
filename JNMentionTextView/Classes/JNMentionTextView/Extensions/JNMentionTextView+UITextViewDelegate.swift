@@ -78,11 +78,12 @@ extension JNMentionTextView: UITextViewDelegate {
                     
                     // get value for JNMentionNSAttribute
                     if let mentionedItem = attributes[JNMentionTextView.JNMentionAttributeName] as? JNMentionEntity,
-                        cursorPosition > rangeAttributes.location && (text.isEmpty ? cursorPosition - 1 : cursorPosition) <= rangeAttributes.location + rangeAttributes.length {
+                       cursorPosition > rangeAttributes.location && (text.isEmpty ? cursorPosition - 1 : cursorPosition) <= rangeAttributes.location + rangeAttributes.length {
                         
                         // init replacement string
-                        let replacementString = mentionedItem.symbol + mentionedItem.item.getPickableTitle()
-                        
+                        // if entity can be trimmed, replace the text with a empty, else with the mention
+                        let replacementString = options.entityCanBeTrimmed ? "" : mentionedItem.symbol + mentionedItem.item.getPickableTitle()
+
                         // replace the mentioned item with (symbol with mentioned title)
                         self.textStorage.replaceCharacters(in: rangeAttributes, with: NSAttributedString(string: replacementString, attributes: self.normalAttributes))
                         
@@ -97,7 +98,27 @@ extension JNMentionTextView: UITextViewDelegate {
                         // start mention process with search string for tem title
                         self.searchString = mentionedItem.item.getPickableTitle()
                         self.startMentionProcess()
-                        
+
+                        if options.entityCanBeTrimmed {
+                            // end mention process
+                            self.endMentionProcess()
+
+                            // set mention deletion process false
+                            mentionDeletionProcess = false
+                        }  else {
+                            /// set selected symbol information
+                            self.selectedSymbol = mentionedItem.symbol
+                            self.selectedSymbolLocation = rangeAttributes.location
+                            self.selectedSymbolAttributes = attributes
+
+                            /// start mention process with search string for tem title
+                            self.searchString = mentionedItem.item.getPickableTitle()
+                            self.startMentionProcess()
+
+                            // set mention deletion process true
+                            mentionDeletionProcess = true
+                        }
+
                         // skip this change in text
                         shouldChangeText = false
                         

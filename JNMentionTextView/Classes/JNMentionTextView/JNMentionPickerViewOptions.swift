@@ -39,18 +39,25 @@ public struct JNMentionPickerViewOptions {
     
     /// View Position Mode
     var viewPositionMode: JNMentionPickerViewPositionwMode
-        
+
+    /// Bolean indicates if a given mention can be 'trimmed'. Trimming is a feature of the mentions plug-in that allows the mention to be truncated if and only if the user taps 'Delete' while the cursor is at the end of the mention.
+    var entityCanBeTrimmed: Bool
+
     /**
      Initializer
      - Parameter backgroundColor: Background color.
      - Parameter viewPositionMode: JNMention View Mode.
      */
-    public init(backgroundColor: UIColor = UIColor.white, viewPositionMode: JNMentionPickerViewPositionwMode) {
-        
+    public init(backgroundColor: UIColor = UIColor.white,
+                viewPositionMode: JNMentionPickerViewPositionwMode,
+                entityCanBeTrimmed: Bool = false) {
+
         // background Color
         self.backgroundColor = backgroundColor
         
         // view position mode
         self.viewPositionMode = viewPositionMode
+
+        self.entityCanBeTrimmed = entityCanBeTrimmed
     }
 }

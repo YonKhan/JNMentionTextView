@@ -13,7 +13,7 @@ extension JNMentionTextView: UITextViewDelegate {
     /**
      Should Change Text In
      */
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         // return if delegate indicate that it sohuld not chnage text in the selected range.
         if let delegate = self.mentionDelegate, !(delegate.textView?(textView, shouldChangeTextIn: range, replacementText: text) ?? true) {
@@ -172,28 +172,28 @@ extension JNMentionTextView: UITextViewDelegate {
     /**
      Text View should begin editing
      */
-    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    open func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         return self.mentionDelegate?.textViewShouldBeginEditing?(textView) ?? true
     }
     
     /**
      Text View should end editing
      */
-    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    open func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         return self.mentionDelegate?.textViewShouldEndEditing?(textView) ?? true
     }
     
     /**
      Text View Did begin editing
      */
-    public func textViewDidBeginEditing(_ textView: UITextView) {
+    open func textViewDidBeginEditing(_ textView: UITextView) {
         self.mentionDelegate?.textViewDidBeginEditing?(textView)
     }
     
     /**
      Text View Did end editing
      */
-    public func textViewDidEndEditing(_ textView: UITextView) {
+    open func textViewDidEndEditing(_ textView: UITextView) {
         
         // end mention process
         self.endMentionProcess {
@@ -204,14 +204,14 @@ extension JNMentionTextView: UITextViewDelegate {
     /**
      Text View did change selection
      */
-    public func textViewDidChangeSelection(_ textView: UITextView) {
+    open func textViewDidChangeSelection(_ textView: UITextView) {
         self.mentionDelegate?.textViewDidChangeSelection?(textView)
     }
     
     /**
      Text View should interact with url.
      */
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+    open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         return self.mentionDelegate?.textView?(textView, shouldInteractWith: URL, in: characterRange) ?? true
     }
     
@@ -219,7 +219,7 @@ extension JNMentionTextView: UITextViewDelegate {
      Text View should interact with url in range with interaction.
      */
     @available(iOS 10.0, *)
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+    open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         return self.mentionDelegate?.textView?(textView, shouldInteractWith: URL, in: characterRange, interaction: interaction) ?? true
     }
     
@@ -227,14 +227,14 @@ extension JNMentionTextView: UITextViewDelegate {
      Text View should interact with text attachment in range with interaction.
      */
     @available(iOS 10.0, *)
-    public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+    open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         return self.mentionDelegate?.textView?(textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) ?? true
     }
     
     /**
      Text View should interact with text attachment in range.
      */
-    public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
+    open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
         return self.mentionDelegate?.textView?(textView, shouldInteractWith: textAttachment, in: characterRange) ?? true
     }
 }
